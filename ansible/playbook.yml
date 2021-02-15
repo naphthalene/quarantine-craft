@@ -84,7 +84,6 @@
             servers:
               default:
                 server_name: _
-                # root: "{{ web_root_dir }}"
                 listen:
                   listen_localhost:
                     port: 80
@@ -93,8 +92,11 @@
                     # ssl: yes
                 web_server:
                   locations:
+                    home:
+                      location: /
+                      html_file_location: "{{ web_root_dir }}/app"
                     atlas:
-                      location: /atlas/
+                      location: /atlas
                       html_file_location: "{{ web_root_dir }}"
                       # try_files: $uri $uri/index.html $uri.html =404
                       auth_basic: "{{ title }}"

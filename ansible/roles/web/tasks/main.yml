@@ -22,3 +22,32 @@
     src: "{{ playbook_dir }}/../upstream/liveatlas/dist/"
     dest: "{{ web_root_dir }}/atlas/"
     force: yes
+
+- name: List all php files for removal
+  ansible.builtin.find:
+    paths: "{{ web_root_dir }}/atlas"
+    recurse: yes
+    file_type: file
+    patterns: '*.php,*.aspx,robots.txt,login.html'
+  register: web_dynmap_php_files
+
+- name: Remove all unnecessary web files
+  loop: "{{ web_dynmap_php_files.files | json_query('[].path') }}"
+  ansible.builtin.file:
+    state: absent
+    dest: "{{ item }}"
+
+- name: Build web app
+  delegate_to: localhost
+  become: no
+  connection: local
+  ansible.builtin.shell:
+    cmd: npm run build
+    chdir: "{{ playbook_dir }}/../web"
+    creates: "{{ playbook_dir }}/../web/out/"
+
+- name: Copy web app to web root
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../web/out/"
+    dest: "{{ web_root_dir }}/app/"
+    force: yes
