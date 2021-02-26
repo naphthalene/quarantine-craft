@@ -1,0 +1,11 @@
+* TODO [#A] Set up a shopping mall
+* TODO [#A] Plugins!
+** TODO Hookshot replacement
+** TODO Armored elytra
+* TODO [#A] Automatic backups
+* TODO [#B] Website updates (host-based routing in nginx)
+** TODO Show leaderboards, stats
+** TODO LiveAtlas instead of dynmap default
+** TODO oauth2-proxy
+* TODO [#C] Discord integration for restart notifications
+  DiscordSRV (?)
