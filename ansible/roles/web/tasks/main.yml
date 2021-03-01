@@ -1,0 +1,24 @@
+---
+- name: Bind mount for the dynmap web folder
+  become: yes
+  ansible.posix.mount:
+    path: "{{ web_root_dir }}/atlas/"
+    src: "{{ srv_overlay_dir }}/plugins/dynmap/web"
+    opts: bind
+    state: mounted
+    fstype: none
+
+- name: Build LiveAtlas app
+  delegate_to: localhost
+  become: no
+  connection: local
+  ansible.builtin.shell:
+    cmd: npm run build
+    chdir: "{{ playbook_dir }}/../upstream/liveatlas"
+    creates: "{{ playbook_dir }}/../upstream/liveatlas/dist/"
+
+- name: Copy LiveAtlas app to web root
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../upstream/liveatlas/dist/"
+    dest: "{{ web_root_dir }}/atlas/"
+    force: yes

@@ -1,0 +1,31 @@
+---
+- name: start
+  ansible.builtin.shell:
+    cmd: >-
+      tmux send-keys -t {{ srv_tmux_session_name }} -l './start.sh';
+      tmux send-keys -t {{ srv_tmux_session_name }} Enter;
+
+- name: restart
+  ansible.builtin.shell:
+    cmd: >-
+      tmux send-keys -t {{ srv_tmux_session_name }} -l 'say Server is going to restart in 30 seconds!';
+      tmux send-keys -t {{ srv_tmux_session_name }} Enter;
+      sleep 30;
+      tmux send-keys -t {{ srv_tmux_session_name }} -l 'stop';
+      tmux send-keys -t {{ srv_tmux_session_name }} Enter;
+      sleep 10;
+      tmux send-keys -t {{ srv_tmux_session_name }} -l './start.sh';
+      tmux send-keys -t {{ srv_tmux_session_name }} Enter;
+  when: srv_running_pid is succeeded
+
+- name: rm_server_configs
+  loop: "{{ srv_generated_server_configs }}"
+  ansible.builtin.file:
+    state: absent
+    path: "{{ srv_data_dir }}/{{ item }}"
+
+- name: rm_plugin_configs
+  loop: "{{ srv_generated_plugin_configs | subelements('files') }}"
+  ansible.builtin.file:
+    state: absent
+    path: "{{ srv_data_dir }}/plugins/{{ item.0.name }}/{{ item.1 }}"

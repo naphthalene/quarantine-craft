@@ -1,24 +1,15 @@
 #!/bin/bash
 set -euo pipefail
 
-SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
-  SOURCE="$(readlink "$SOURCE")"
-  # if $SOURCE was a relative symlink, we need to resolve it relative
-  # to the path where the symlink file was located
-  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
-done
-DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
-
 # -------------------------------------------------------
 # This script runs the server
 # -------------------------------------------------------
 [ -f /etc/default/minecraft ] && . /etc/default/minecraft
 
+# FIXME: change back to 10G for memory
 java \
-    -Xms10G \
-    -Xmx10G \
+    -Xms3G \
+    -Xmx3G \
     -XX:+UseG1GC \
     -XX:+ParallelRefProcEnabled \
     -XX:MaxGCPauseMillis=200 \
@@ -37,4 +28,4 @@ java \
     -XX:SurvivorRatio=32 \
     -XX:+PerfDisableSharedMem \
     -XX:MaxTenuringThreshold=1 \
-    -jar "${DIR}/paper.jar" nogui
+    -jar "${OVERLAY_DIR}/paper.jar" nogui

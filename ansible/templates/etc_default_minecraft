@@ -1,0 +1,3 @@
+{% for key, value in etc_default_minecraft.items() %}
+{{key}}={{value}}
+{% endfor -%}
