@@ -1,0 +1,109 @@
+---
+# Status checks
+- name: Check if tmux session is already running
+  ansible.builtin.shell:
+    cmd: >
+      tmux list-sessions -F '#{session_name}' | grep {{ srv.tmux.session_name }}
+  register: srv_tmux_session_exists
+  ignore_errors: true
+
+- name: Check if server is running
+  ansible.builtin.shell:
+    cmd: "pgrep -f 'java.*paper'"
+  register: srv_running_pid
+  ignore_errors: true
+
+# - name: Check if world layer has any data
+#   ansible.builtin.
+
+# Basic setup
+- name: Load plugin var files
+  include_vars:
+    dir: "{{ role_path }}/vars/plugins"
+    name: plugin_configs
+
+- name: Ensure server directories exist
+  loop: "{{ server_dirs }}"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ srv.user }}"
+    group: "{{ srv.user }}"
+  vars:
+    server_dirs:
+      - "{{ srv.overlay_dir }}"
+      - "{{ srv.config_dir }}"
+      - "{{ srv.data_dir }}"
+      - "{{ srv.work_dir }}"
+      - "{{ srv.plugin_jar_dir }}"
+      - "{{ srv.server_jar_dir }}"
+      - "{{ srv.config_dir }}/plugins"
+
+- name: Ensure plugin config directories exist
+  loop: "{{ plugin_configs.keys() }}"
+  ansible.builtin.file:
+    path: "{{ srv.config_dir }}/plugins/{{ item }}"
+    state: directory
+    owner: "{{ srv.user }}"
+    group: "{{ srv.user }}"
+
+# Configure the server
+- name: Symlink the server jar
+  ansible.builtin.file:
+    state: link
+    owner: "{{ srv.user }}"
+    group: "{{ srv.user }}"
+    src: "{{ srv.server_jar_dir }}/paper-{{ srv.paper_version }}.jar"
+    dest: "{{ srv.config_dir }}/paper.jar"
+
+- name: Render server configs from raw YAML
+  loop: "{{ srv.config.raw_yaml }}"
+  ansible.builtin.copy:
+    dest: "{{ srv.config_dir }}/{{ item.file }}"
+    owner: "{{ srv.user }}"
+    group: "{{ srv.user }}"
+    mode: '0644'
+    content: "{{ srv.config_data[item.key] | to_nice_yaml(indent=2, width=1337) }}"
+
+- name: Render server configs from templates
+  loop: "{{ srv.config.templates }}"
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/{{ item.file }}"
+    dest: "{{ srv.config_dir }}/{{ item.file }}"
+    owner: "{{ srv.user }}"
+    group: "{{ srv.user }}"
+    mode: '0644'
+
+- name: Symlink all plugins from the plugin JAR folder
+  loop: "{{ srv.plugins.enabled }}"
+  ansible.builtin.file:
+    state: link
+    owner: "{{ srv.user }}"
+    group: "{{ srv.user }}"
+    src: "{{ srv.plugin_jar_dir }}/{{ item.name }}/{{ item.version }}.jar"
+    dest: "{{ srv.config_dir }}/plugins/{{ item.name }}_{{ item.version }}.jar"
+
+# - name: Debug
+#   loop: "{{ srv.plugins.enabled | subelements('raw_yaml', skip_missing=True) }}"
+#   ansible.builtin.debug:
+#     msg: "{{ plugin_configs[item.0.name][item.1.key] }}"
+
+- name: Render plugin configs from raw YAML
+  loop: "{{ srv.plugins.enabled | subelements('raw_yaml', skip_missing=True) }}"
+  ansible.builtin.copy:
+    dest: "{{ srv.config_dir }}/plugins/{{ item.0.name }}/{{ item.1.file }}"
+    owner: "{{ srv.user }}"
+    group: "{{ srv.user }}"
+    mode: '0644'
+    content: "{{ plugin_configs[item.0.name][item.1.key] | to_nice_yaml(indent=2, width=1337) }}"
+
+- name: Render plugin configs from templates
+  loop: "{{ srv.plugins.enabled | subelements('templates', skip_missing=True) }}"
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/plugins/{{ item.0.name }}/{{ item.1.file }}"
+    dest: "{{ item.1.file }}"
+    owner: "{{ srv.user }}"
+    group: "{{ srv.user }}"
+    mode: '0644'
+
+- name: Create overlay

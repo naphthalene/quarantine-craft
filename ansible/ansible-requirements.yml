@@ -1,0 +1,8 @@
+---
+collections:
+  - name: nginxinc.nginx_core
+    version: 0.3.0
+  - name: ansible.posix
+    version: 1.1.1
+  - name: community.general
+    version: 2.0.1

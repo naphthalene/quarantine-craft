@@ -1,0 +1,3 @@
+[submodule "upstream/liveatlas"]
+	path = upstream/liveatlas
+	url = git@github.com:JLyne/LiveAtlas.git

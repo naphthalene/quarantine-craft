@@ -1,0 +1,13 @@
+title: Quarantine Craft
+fqdn: localhost
+# backup_dir: /var/mc/backup
+# letsencrypt_certs_dir: /etc/letsencrypt/live/home.sadikov.tech
+
+srv:
+  user: sigmat
+  overlay_dir: /var/mc/overlay
+  config_dir: /var/mc/config
+  data_dir: /var/mc/data
+  work_dir: /var/mc/work
+  plugin_jar_dir: /var/mc/jar/plugin
+  server_jar_dir: /var/mc/jar/paper
