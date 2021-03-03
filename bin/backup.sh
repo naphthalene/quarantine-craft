@@ -15,6 +15,23 @@ IFS=$'\n\t'
 
 NOW_TS="$(date +%s)"
 BACKUP_TARBALL="${BACKUP_DIR}/${NOW_TS}.tar"
+PLUGIN_DATA_PATHS=(
+  "AutomatedCrafting/droppers.json"
+  "ChestSort/playerdata/"
+  "dynmap/ids-by-ip.txt"
+  "dynmap/markers.yml"
+  "Essentials/warps/"
+  "Essentials/userdata/"
+  "GriefPreventionData/Logs"
+  "GriefPreventionData/ClaimData"
+  "GriefPreventionData/PlayerData"
+  "LuckPerms/luckperms-h2.mv.db"
+  "LuckPerms/luckperms-h2.trace.db"
+  "mcMMO/flatfile/"
+  "TreeAssist/world/"
+  "TreeAssist/world_nether/"
+  "TreeAssist/world_the_end/"
+)
 
 function _tar() {
   tar -C ${DATA_DIR}/ $@
@@ -25,11 +42,25 @@ function _create_backup_tarball() {
   _tar -cf "${BACKUP_TARBALL}" -T /dev/null
 }
 
+function _backup_plugins() {
+  echo ">> Backing up plugin data"
+  for dataPath in "${PLUGIN_DATA_PATHS[@]}"
+  do
+    if [[ -e "${DATA_DIR}/plugins/${dataPath}" ]]; then
+      echo ">> + [${dataPath}]"
+      _tar --append -f "${BACKUP_TARBALL}" "plugins/${dataPath}"
+    else
+      echo ">> ! Not found: [${dataPath}]"
+    fi
+  done
+}
+
 function _backup_data_volume() {
-  echo ">> Backing up data volume [${DATA_DIR}]"
-  _tar --append -f "${BACKUP_TARBALL}" *
+  echo ">> Backing up world data"
+  _tar --append -f "${BACKUP_TARBALL}" world*
 }
 
 _create_backup_tarball
+_backup_plugins
 _backup_data_volume
 echo ">> Done"

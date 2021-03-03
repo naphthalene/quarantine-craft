@@ -13,12 +13,13 @@ These need to be configured by end user
 * web_root_dir
 * web_port
 
-* srv.user
-* srv.tmux_session_name
-* srv.backup_dir
-* srv.overlay_dir
-* srv.config_dir
-* srv.data_dir
-* srv.work_dir
-* srv.plugin_jar_dir
-* srv.server_jar_dir
+* srv_user
+* srv_memory
+* srv_tmux_session_name
+* srv_backup_dir
+* srv_overlay_dir
+* srv_config_dir
+* srv_data_dir
+* srv_work_dir
+* srv_plugin_jar_dir
+* srv_server_jar_dir
