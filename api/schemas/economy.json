@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/schema#",
+  "title": "Essentials Economy",
+  "type": "object",
+  "description": "The economy info of the server",
+  "required": ["total", "players"],
+  "properties": {
+    "balance": {
+      "type": "string",
+      "description": "The total balance of the server"
+    },
+    "players": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "object",
+        "description": "Player balance",
+        "required": ["player_id", "balance"]
+        "properties": {
+          "player_id": {
+            "type": "string",
+            "description": "UUID of the player"
+          }
+        }
+      }
+    }
+  }
+}

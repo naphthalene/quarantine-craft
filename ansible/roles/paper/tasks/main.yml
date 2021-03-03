@@ -5,13 +5,13 @@
     cmd: >
       tmux list-sessions -F '#{session_name}' | grep {{ srv_tmux_session_name }}
   register: srv_tmux_session_exists
-  ignore_errors: true
+  ignore_errors: yes
 
 - name: Check if server is running
   ansible.builtin.shell:
     cmd: "pgrep -f 'java.*paper'"
   register: srv_running_pid
-  ignore_errors: true
+  ignore_errors: yes
 
 # Basic setup
 - name: Load plugin var files
@@ -56,9 +56,6 @@
   set_fact:
     srv_generated_server_configs: "{{ (srv_config.templates | json_query('[].file')) + (srv_config.raw_yaml | json_query('[].file')) }}"
     srv_generated_plugin_configs: "{{ srv_plugins.enabled | json_query('[].{name: name, files: [raw_yaml,templates][].file}') }}"
-  notify:
-    - rm_server_configs
-    - rm_plugin_configs
 
 # Configure the server
 - name: Symlink any scripts to the repo
@@ -81,8 +78,6 @@
     group: "{{ srv_user }}"
     src: "{{ srv_server_jar_dir }}/paper-{{ srv_paper_version }}.jar"
     dest: "{{ srv_config_dir }}/paper.jar"
-  # notify:
-  #   - restart
 
 - name: Render server configs from raw YAML
   loop: "{{ srv_config.raw_yaml }}"
@@ -94,7 +89,6 @@
     content: "{{ srv_config_data[item.key] | to_nice_yaml(indent=2, width=1337) }}"
   notify:
     - restart
-    - rm_server_configs
 
 - name: Render server configs from templates
   loop: "{{ srv_config.templates }}"
@@ -106,7 +100,6 @@
     mode: '0644'
   notify:
     - restart
-    - rm_server_configs
 
 - name: Symlink all plugins from the plugin JAR folder
   loop: "{{ srv_plugins.enabled }}"
@@ -128,7 +121,6 @@
     content: "{{ plugin_configs[item.0.name][item.1.key] | to_nice_yaml(indent=2, width=1337) }}"
   notify:
     - restart
-    - rm_plugin_configs
 
 - name: Render plugin configs from templates
   loop: "{{ srv_plugins.enabled | subelements('templates', skip_missing=True) }}"
@@ -140,7 +132,6 @@
     mode: '0644'
   notify:
     - restart
-    - rm_plugin_configs
 
 - name: Create server overlay mount
   become: yes
@@ -151,14 +142,9 @@
     fstype: overlay
     opts: "index=off,lowerdir={{ srv_config_dir }},upperdir={{ srv_data_dir }},workdir={{ srv_work_dir }}"
 
-- name: Create tmux session if it doesn't exist
-  ansible.builtin.shell:
-    cmd: "tmux new-session -d -c {{ srv_overlay_dir }} -s {{ srv_tmux_session_name }}"
-  when: srv_tmux_session_exists.failed
-
 - name: Start the server if it is not running
   debug:
     msg: '>> Starting server if not running'
-  changed_when: srv_running_pid.failed
+  changed_when: srv_running_pid is failed
   notify:
     - start

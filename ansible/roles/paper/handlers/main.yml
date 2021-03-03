@@ -1,31 +1,75 @@
 ---
-- name: start
+- name: stop
   ansible.builtin.shell:
     cmd: >-
-      tmux send-keys -t {{ srv_tmux_session_name }} -l './start.sh';
-      tmux send-keys -t {{ srv_tmux_session_name }} Enter;
-
-- name: restart
-  ansible.builtin.shell:
-    cmd: >-
-      tmux send-keys -t {{ srv_tmux_session_name }} -l 'say Server is going to restart in 30 seconds!';
+      tmux send-keys -t {{ srv_tmux_session_name }} -l 'say Server will restart in 30 seconds...';
       tmux send-keys -t {{ srv_tmux_session_name }} Enter;
       sleep 30;
       tmux send-keys -t {{ srv_tmux_session_name }} -l 'stop';
       tmux send-keys -t {{ srv_tmux_session_name }} Enter;
       sleep 10;
-      tmux send-keys -t {{ srv_tmux_session_name }} -l './start.sh';
-      tmux send-keys -t {{ srv_tmux_session_name }} Enter;
-  when: srv_running_pid is succeeded
+  listen: restart
+  when: srv_running_pid is succeeded and srv_restart_enabled is truthy(convert_bool=True)
+
+- name: stop_tmux
+  ansible.builtin.shell:
+    cmd: "tmux kill-session -t {{ srv_tmux_session_name }}"
+  listen: restart
+  when: srv_tmux_session_exists is succeeded and srv_restart_enabled is truthy(convert_bool=True)
 
 - name: rm_server_configs
   loop: "{{ srv_generated_server_configs }}"
   ansible.builtin.file:
     state: absent
     path: "{{ srv_data_dir }}/{{ item }}"
+  listen: restart
+  when: srv_restart_enabled is truthy(convert_bool=True)
 
 - name: rm_plugin_configs
   loop: "{{ srv_generated_plugin_configs | subelements('files') }}"
   ansible.builtin.file:
     state: absent
     path: "{{ srv_data_dir }}/plugins/{{ item.0.name }}/{{ item.1 }}"
+  listen: restart
+  when: srv_restart_enabled is truthy(convert_bool=True)
+
+- name: unmount_overlay
+  become: yes
+  ansible.posix.mount:
+    path: "{{ srv_overlay_dir }}"
+    state: unmounted
+    src: overlay
+    fstype: overlay
+    opts: "index=off,lowerdir={{ srv_config_dir }},upperdir={{ srv_data_dir }},workdir={{ srv_work_dir }}"
+  listen: restart
+  when: srv_restart_enabled is truthy(convert_bool=True)
+
+- name: mount_overlay
+  become: yes
+  ansible.posix.mount:
+    path: "{{ srv_overlay_dir }}"
+    state: mounted
+    src: overlay
+    fstype: overlay
+    opts: "index=off,lowerdir={{ srv_config_dir }},upperdir={{ srv_data_dir }},workdir={{ srv_work_dir }}"
+  listen: restart
+  when: srv_restart_enabled is truthy(convert_bool=True)
+
+- name: start_tmux
+  ansible.builtin.shell:
+    cmd: "tmux new-session -d -c {{ srv_overlay_dir }} -s {{ srv_tmux_session_name }}"
+  listen:
+    - start
+    - restart
+  ignore_errors: yes
+  when: srv_tmux_session_exists is failed or srv_restart_enabled is truthy(convert_bool=True)
+
+- name: start_server
+  ansible.builtin.shell:
+    cmd: >-
+      tmux send-keys -t {{ srv_tmux_session_name }} -l './start.sh';
+      tmux send-keys -t {{ srv_tmux_session_name }} Enter;
+  listen:
+    - start
+    - restart
+  when: srv_restart_enabled is truthy(convert_bool=True)

@@ -1,3 +1,3 @@
 {% for key, value in etc_default_minecraft.items() %}
-{{key}}={{value}}
+export {{key}}={{value}}
 {% endfor -%}

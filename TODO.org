@@ -1,4 +1,16 @@
+* TODO Spawn rework
+** TODO Room with book, kit info
+* TODO Kits
+** TODO Create
 * TODO Admin shops
+** DONE Green Shop
+   - Totem & Elytra
+** TODO Twisted Hall
+   - 
+** TODO Diamond Alley
+*** TODO Kits of diamond gear for $
+*** TODO 
+** TODO 
 * TODO Plugins
 ** TODO Hookshot replacement... :(
 ** DONE Armored elytra
