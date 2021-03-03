@@ -134,7 +134,7 @@
   loop: "{{ srv_plugins.enabled | subelements('templates', skip_missing=True) }}"
   ansible.builtin.template:
     src: "{{ role_path }}/templates/plugins/{{ item.0.data_folder if item.0.data_folder is defined else item.0.name }}/{{ item.1.file }}"
-    dest: "{{ item.1.file }}"
+    dest: "{{ srv_config_dir }}/plugins/{{ item.0.data_folder if item.0.data_folder is defined else item.0.name }}/{{ item.1.file }}"
     owner: "{{ srv_user }}"
     group: "{{ srv_user }}"
     mode: '0644'

@@ -33,6 +33,7 @@
           CONFIG_DIR: "{{ srv_config_dir }}"
           DATA_DIR: "{{ srv_data_dir }}"
           BACKUP_DIR: "{{ srv_backup_dir }}"
+          JAVA_MEMORY: "{{ srv_memory }}"
 
     - name: Configure Minecraft server and plugins
       include_role:

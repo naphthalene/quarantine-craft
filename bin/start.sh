@@ -6,10 +6,11 @@ set -euo pipefail
 # -------------------------------------------------------
 [ -f /etc/default/minecraft ] && . /etc/default/minecraft
 : "${OVERLAY_DIR?}"
+: "${JAVA_MEMORY?}"
 
 java \
-    -Xms12G \
-    -Xmx12G \
+    "-Xms${JAVA_MEMORY}" \
+    "-Xmx${JAVA_MEMORY}" \
     -XX:+UseG1GC \
     -XX:+ParallelRefProcEnabled \
     -XX:MaxGCPauseMillis=200 \

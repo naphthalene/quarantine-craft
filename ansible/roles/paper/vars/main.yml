@@ -1,8 +1,9 @@
 ---
 git:
   repo: git@git.sr.ht:~sigmat/qcraft
-  ref: origin/webapp
+  ref: origin/main
   clone_dir: /var/mc/git
+srv_memory: 12Gi
 srv_paper_version: 1.16.5-506
 srv_plugins:
   # All <key> references are to `srv_plugins_config_data.<plugin-name>.<key>`
