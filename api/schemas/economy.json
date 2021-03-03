@@ -19,7 +19,11 @@
         "properties": {
           "player_id": {
             "type": "string",
-            "description": "UUID of the player"
+            "description": "Player nickname"
+          },
+          "balance": {
+            "type": "string",
+            "description": "Current balance of player"
           }
         }
       }
