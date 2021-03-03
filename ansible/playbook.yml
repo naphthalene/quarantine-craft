@@ -1,7 +1,6 @@
 ---
 - name: Quarantine Craft
-  hosts: test
-  # hosts: main
+  hosts: main
   collections:
     - nginxinc.nginx_core
     - ansible.posix
@@ -15,7 +14,7 @@
         name: "{{ item }}"
       vars:
         packages:
-          - nginx
+          - nginx-mainline
           - jre11-openjdk-headless
           - tmux
           - s-tui
@@ -86,10 +85,8 @@
                 server_name: _
                 listen:
                   listen_localhost:
-                    port: 80
-                    ssl: false
-                    # port: 443
-                    # ssl: yes
+                    port: 443
+                    ssl: yes
                 web_server:
                   locations:
                     home:
@@ -98,12 +95,11 @@
                     atlas:
                       location: /atlas
                       html_file_location: "{{ web_root_dir }}"
-                      # try_files: $uri $uri/index.html $uri.html =404
                       auth_basic: "{{ title }}"
                       auth_basic_user_file: /etc/nginx/.mcpasswd
-                # ssl:
-                #   cert: "{{ web_certs_dir }}/fullchain.pem"
-                #   key: "{{ web_certs_dir }}/privkey.pem"
-                #   dhparam: /etc/letsencrypt/ssl-dhparams.pem
-                # include_files:
-                #   - /etc/letsencrypt/options-ssl-nginx.conf
+                ssl:
+                  cert: "{{ web_certs_dir }}/fullchain.pem"
+                  key: "{{ web_certs_dir }}/privkey.pem"
+                  dhparam: /etc/letsencrypt/ssl-dhparams.pem
+                include_files:
+                  - /etc/letsencrypt/options-ssl-nginx.conf

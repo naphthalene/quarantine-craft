@@ -1,0 +1,6 @@
+---
+main:
+  hosts:
+    sigmund:
+      ansible_host: localhost
+      ansible_connection: local

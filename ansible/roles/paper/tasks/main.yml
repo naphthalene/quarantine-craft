@@ -81,8 +81,8 @@
     group: "{{ srv_user }}"
     src: "{{ srv_server_jar_dir }}/paper-{{ srv_paper_version }}.jar"
     dest: "{{ srv_config_dir }}/paper.jar"
-  notify:
-    - restart
+  # notify:
+  #   - restart
 
 - name: Render server configs from raw YAML
   loop: "{{ srv_config.raw_yaml }}"
@@ -142,7 +142,7 @@
     - restart
     - rm_plugin_configs
 
-- name: Create server overlay dir
+- name: Create server overlay mount
   become: yes
   ansible.posix.mount:
     path: "{{ srv_overlay_dir }}"

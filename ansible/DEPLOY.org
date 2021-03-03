@@ -1,0 +1,4 @@
+* DONE Rsync /var/mc/jar files
+* DONE Reboot to pick up new kernel and get overlayfs working
+* DONE Sync time via NTP
+* TODO Move backups over

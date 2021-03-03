@@ -5,11 +5,11 @@ set -euo pipefail
 # This script runs the server
 # -------------------------------------------------------
 [ -f /etc/default/minecraft ] && . /etc/default/minecraft
+: "${OVERLAY_DIR?}"
 
-# FIXME: change back to 10G for memory
 java \
-    -Xms3G \
-    -Xmx3G \
+    -Xms12G \
+    -Xmx12G \
     -XX:+UseG1GC \
     -XX:+ParallelRefProcEnabled \
     -XX:MaxGCPauseMillis=200 \

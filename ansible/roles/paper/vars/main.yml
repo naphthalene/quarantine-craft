@@ -1,7 +1,7 @@
 ---
 git:
   repo: git@git.sr.ht:~sigmat/qcraft
-  ref: origin/ansible-nginx
+  ref: origin/webapp
   clone_dir: /var/mc/git
 srv_paper_version: 1.16.5-506
 srv_plugins:

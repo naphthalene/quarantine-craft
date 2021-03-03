@@ -10,8 +10,8 @@ These need to be configured by end user
 
 * web_fqdn
 * web_certs_dir
-* web_tiles_dir
-* web_atlas_dir
+* web_root_dir
+* web_port
 
 * srv.user
 * srv.tmux_session_name

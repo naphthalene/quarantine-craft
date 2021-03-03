@@ -3,9 +3,3 @@ main:
   hosts:
     sigsentry:
       ansible_host: sigsentry
-
-test:
-  hosts:
-    sigmund:
-      ansible_host: localhost
-      ansible_connection: local
