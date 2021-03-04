@@ -127,6 +127,8 @@
     src: "{{ srv_plugin_jar_dir }}/{{ item.name }}/{{ item.version }}.jar"
     dest: "{{ srv_config_dir }}/plugins/{{ item.name }}.jar"
   when: "item.version is defined"
+  notify:
+    - restart
 
 - name: Render plugin configs from raw YAML
   loop: "{{ srv_plugins.enabled | subelements('raw_yaml', skip_missing=True) }}"

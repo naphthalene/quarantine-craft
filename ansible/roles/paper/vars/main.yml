@@ -46,6 +46,11 @@ srv_plugins:
       templates:
         - file: info.txt
         - file: motd.txt
+    - name: GrapplingHook
+      version: v3.7
+      raw_yaml:
+        - key: config
+          file: config.yml
     - name: Graves
       version: v3.8
       raw_yaml:

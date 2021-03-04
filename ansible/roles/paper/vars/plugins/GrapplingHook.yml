@@ -1,0 +1,35 @@
+GrapplingHook:
+  config:
+    debug: false
+    display_name: '&bGrappling Hook'
+    lore:
+    - '&r&7&oRight-click to throw'
+    - '&r&7&o{USES} use(s) left'
+    - '&r&7&o{DISTANCE} block distance'
+    - '&r&e<Collector''s Item>'
+    - Found at the bottom of a
+    - cliff..
+    glowing: true
+    rappel_cooldown: 1000
+    throw_cooldown: 1000
+    rappel_sound: ENTITY_MAGMA_CUBE_JUMP
+    latch_sound: ENTITY_SHEEP_SHEAR
+    throw_speed_multiplier: 2.0
+    nofall: true
+    stabilize: true
+    stabilize_distance: 5.0
+    auto_retract: true
+    auto_retract_cooldown: 2000
+    nofall_delay: 3500
+    auto_rappel: true
+    allow_pull: false
+    pull_multiplier: 1.0
+    break_sound: ENTITY_ITEM_BREAK
+    messages:
+      permissionDenied: '&cYou do not have permission!'
+      playerNotFound: '&cPlayer not found!'
+      reload: '&e[GrapplingHook] Config reloaded!'
+      give: '&ePlayer was given a grappling hook!'
+      debugOn: '&e[GrapplingHook] Debug on!'
+      debugOff: '&e[GrapplingHook] Debug off!'
+      cannotUse: '&cYou cannot do that right now!'

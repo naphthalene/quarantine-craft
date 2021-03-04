@@ -2,7 +2,7 @@
 - name: stop
   ansible.builtin.shell:
     cmd: >-
-      tmux send-keys -t {{ srv_tmux_session_name }} -l 'say Server will restart in 30 seconds...';
+      tmux send-keys -t {{ srv_tmux_session_name }} -l 'say Restarting in 30 seconds...';
       tmux send-keys -t {{ srv_tmux_session_name }} Enter;
       sleep 30;
       tmux send-keys -t {{ srv_tmux_session_name }} -l 'stop';
