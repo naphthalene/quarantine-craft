@@ -375,7 +375,7 @@ dynmap:
 
     # Title for the web page - if not specified, defaults to the
     # server's name (unless it is the default of 'Unknown Server')
-    webpage-title: "Quarantine Craft"
+    webpage-title: "{{ title }}"
 
     # The path where the tile-files are placed.
     tilespath: web/tiles

@@ -1,13 +1,4 @@
 ---
-- name: Bind mount for the dynmap web folder
-  become: yes
-  ansible.posix.mount:
-    path: "{{ web_root_dir }}/atlas/"
-    src: "{{ srv_overlay_dir }}/plugins/dynmap/web"
-    opts: bind
-    state: mounted
-    fstype: none
-
 - name: Build LiveAtlas app
   delegate_to: localhost
   become: no
@@ -16,26 +7,32 @@
     cmd: npm run build
     chdir: "{{ playbook_dir }}/../upstream/liveatlas"
     creates: "{{ playbook_dir }}/../upstream/liveatlas/dist/"
+  notify:
+    - deploy_liveatlas
 
-- name: Copy LiveAtlas app to web root
-  ansible.builtin.copy:
-    src: "{{ playbook_dir }}/../upstream/liveatlas/dist/"
-    dest: "{{ web_root_dir }}/atlas/"
-    force: yes
+- name: List all unecessary web files for removal
+  ansible.builtin.find:
+    paths: "{{ web_root_dir }}/atlas"
+    recurse: no
+    file_type: file
+    patterns: '*.php,*.aspx,robots.txt,login.html'
+  register: web_dynmap_php_files
+  notify:
+    - clean_web_root
 
-# - name: List all php files for removal
-#   ansible.builtin.find:
-#     paths: "{{ web_root_dir }}/atlas"
-#     recurse: yes
-#     file_type: file
-#     patterns: '*.php,*.aspx,robots.txt,login.html'
-#   register: web_dynmap_php_files
-
-# - name: Remove all unnecessary web files
-#   loop: "{{ web_dynmap_php_files.files | json_query('[].path') }}"
-#   ansible.builtin.file:
-#     state: absent
-#     dest: "{{ item }}"
+- name: Ensure web directories exist
+  become: yes
+  loop: "{{ web_dirs }}"
+  ansible.builtin.file:
+    path: "{{ web_root_dir }}/{{ item }}/"
+    state: directory
+    owner: "{{ srv_user }}"
+    group: "{{ srv_user }}"
+    mode: '0755'
+  vars:
+    web_dirs:
+      - "app"
+      - "api/v1"
 
 - name: Build web app
   delegate_to: localhost
@@ -44,10 +41,25 @@
   ansible.builtin.shell:
     cmd: npm run build
     chdir: "{{ playbook_dir }}/../web"
-    creates: "{{ playbook_dir }}/../web/out/"
+    creates: "{{ playbook_dir }}/../web/dist/"
+  notify:
+    - deploy_app
 
-- name: Copy web app to web root
-  ansible.builtin.copy:
-    src: "{{ playbook_dir }}/../web/out/"
-    dest: "{{ web_root_dir }}/app/"
-    force: yes
+- name: Remount dynmap web folder in case overlay was rebuilt
+  become: yes
+  block:
+    - name: Unmount web bind volume
+      ansible.posix.mount:
+        path: "{{ web_root_dir }}/atlas/"
+        src: "{{ srv_overlay_dir }}/plugins/dynmap/web"
+        opts: bind
+        state: unmounted
+        fstype: none
+    - name: Mount web bind volume
+      ansible.posix.mount:
+        path: "{{ web_root_dir }}/atlas/"
+        src: "{{ srv_overlay_dir }}/plugins/dynmap/web"
+        opts: bind
+        state: mounted
+        fstype: none
+  when: overlay_remounted is defined

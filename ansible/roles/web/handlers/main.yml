@@ -1,0 +1,18 @@
+---
+- name: deploy_liveatlas
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../upstream/liveatlas/dist/"
+    dest: "{{ web_root_dir }}/atlas/"
+    force: yes
+
+- name: deploy_app
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../web/dist/"
+    dest: "{{ web_root_dir }}/app/"
+    force: yes
+
+- name: clean_web_root
+  loop: "{{ web_dynmap_php_files.files | json_query('[].path') }}"
+  ansible.builtin.file:
+    state: absent
+    dest: "{{ item }}"

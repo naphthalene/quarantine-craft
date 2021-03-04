@@ -1,8 +1,7 @@
 ---
-git:
-  repo: git@git.sr.ht:~sigmat/qcraft
-  ref: origin/main
-  clone_dir: /var/mc/git
+git_repo: git@git.sr.ht:~sigmat/qcraft
+git_ref: origin/main
+git_clone_dir: /var/mc/git
 srv_paper_version: 1.16.5-506
 srv_plugins:
   # All <key> references are to `srv_plugins_config_data.<plugin-name>.<key>`
@@ -138,7 +137,7 @@ srv_config:
 
 srv_config_data:
   server_properties:
-    motd: Quarantine Craft
+    motd: "{{ title }}"
     level-seed: 8307945371505227000
     gamemode: survival
     difficulty: easy

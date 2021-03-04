@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/schema#",
+  "title": "McMMO",
+  "type": "object",
+  "description": "MMO Skills and Stats",
+  "required": ["players"],
+  "properties": {
+    "players": {
+      "type": "array",
+      "description": "List of players",
+      "items": {
+        "type": "object",
+        "description": "Player data FIXME",
+        "required": ["nick"],
+        "properties": {
+          "nick": {
+            "type": "string",
+            "description": "Player nickname"
+          }
+        }
+      }
+    }
+  }
+}

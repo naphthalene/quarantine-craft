@@ -1,5 +1,0 @@
----
-main:
-  hosts:
-    sigsentry:
-      ansible_host: sigsentry

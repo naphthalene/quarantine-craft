@@ -14,6 +14,22 @@
   ignore_errors: yes
 
 # Basic setup
+- name: Create /etc/default/minecraft
+  become: yes
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/etc_default_minecraft"
+    dest: /etc/default/minecraft
+    owner: root
+    group: root
+    mode: '0644'
+  vars:
+    etc_default_minecraft:
+      OVERLAY_DIR: "{{ srv_overlay_dir }}"
+      CONFIG_DIR: "{{ srv_config_dir }}"
+      DATA_DIR: "{{ srv_data_dir }}"
+      BACKUP_DIR: "{{ srv_backup_dir }}"
+      JAVA_MEMORY: "{{ srv_memory }}"
+
 - name: Load plugin var files
   include_vars:
     dir: "{{ role_path }}/vars/plugins"
@@ -21,13 +37,14 @@
 
 - name: Clone the repo
   ansible.builtin.git:
-    repo: "{{ git.repo }}"
-    version: "{{ git.ref }}"
-    dest: "{{ git.clone_dir }}"
+    repo: "{{ git_repo }}"
+    version: "{{ git_ref }}"
+    dest: "{{ git_clone_dir }}"
     force: yes
 
 - name: Ensure server directories exist
   loop: "{{ server_dirs }}"
+  become: yes
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -64,7 +81,7 @@
     state: link
     owner: "{{ srv_user }}"
     group: "{{ srv_user }}"
-    src: "{{ git.clone_dir }}/bin/{{ item }}"
+    src: "{{ git_clone_dir }}/bin/{{ item }}"
     dest: "{{ srv_config_dir }}/{{ item }}"
   vars:
     symlink_scripts:

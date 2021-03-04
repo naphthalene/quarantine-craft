@@ -52,6 +52,7 @@
     src: overlay
     fstype: overlay
     opts: "index=off,lowerdir={{ srv_config_dir }},upperdir={{ srv_data_dir }},workdir={{ srv_work_dir }}"
+  register: overlay_remounted
   listen: restart
   when: srv_restart_enabled is truthy(convert_bool=True)
 

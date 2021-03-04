@@ -2,4 +2,3 @@ collections/**
 !collections/.gitkeep
 
 .venv
-live/

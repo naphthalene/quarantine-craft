@@ -1,28 +1,57 @@
 {
-  "name": "qcraft",
+  "name": "qcraft-web",
   "version": "0.1.0",
-  "private": true,
+  "description": "Quarantine Craft website",
+  "main": "src/index.tsx",
+  "author": "Pasha Sadikov <sigmat@pm.me>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@git.sr.ht:~sigmat/qcraft"
+  },
+  "homepage": "git@git.sr.ht:~sigmat/qcraft",
+  "devDependencies": {
+    "@types/file-saver": "^2.0.1",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/requestidlecallback": "^0.3.1",
+    "@types/webpack-env": "^1.16.0",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.15.2",
+    "css-loader": "^5.0.2",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "html-webpack-plugin": "^5.2.0",
+    "json-schema-to-typescript": "^10.1.3",
+    "nps": "^5.10.0",
+    "prettier": "^2.2.1",
+    "source-map-loader": "^2.0.1",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^8.0.17",
+    "typescript": "^4.2.2",
+    "webpack": "^5.24.1",
+    "webpack-bundle-analyzer": "^4.4.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build && next export",
-    "start": "next start"
+    "start": "nps api build",
+    "build": "nps api build.prod"
   },
   "dependencies": {
-    "@emotion/react": "^11.1.5",
-    "@emotion/styled": "^11.1.5",
-    "@material-ui/core": "^5.0.0-alpha.26",
-    "@material-ui/icons": "^5.0.0-alpha.26",
-    "date-fns": "^2.11.1",
-    "gray-matter": "^4.0.2",
-    "next": "^10.0.0",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "remark": "^12.0.0",
-    "remark-html": "^12.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^14.14.31",
+    "@babylonjs/core": "^4.2.0",
+    "@babylonjs/inspector": "^4.2.0",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "@types/react": "^17.0.2",
-    "typescript": "^4.1.5"
+    "@types/react-dom": "^17.0.1",
+    "file-saver": "^2.0.5",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-jss": "^10.5.1",
+    "react-router-dom": "^5.2.0"
   }
 }

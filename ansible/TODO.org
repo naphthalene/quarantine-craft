@@ -1,3 +1,3 @@
 * DONE Remove jars of old plugins
-* TODO Remove config files saves to overlay
-* TODO Don't hash_behavior=merge srv dict, use separate fields with underscores
+* DONE Remove config files saves to overlay
+* DONE Don't hash_behavior=merge srv dict, use separate fields with underscores

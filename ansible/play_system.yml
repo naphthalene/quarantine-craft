@@ -1,0 +1,19 @@
+---
+- name: Update system packages and configs
+  hosts: all
+  collections:
+    - ansible.posix
+    - community.general
+  tasks:
+    - name: Install packages from repository
+      loop: "{{ packages }}"
+      become: yes
+      ansible.builtin.package:
+        state: present
+        name: "{{ item }}"
+      vars:
+        packages:
+          - nginx-mainline
+          - jre11-openjdk-headless
+          - tmux
+          - s-tui

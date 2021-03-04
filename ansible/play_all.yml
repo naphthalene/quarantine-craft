@@ -1,0 +1,9 @@
+---
+- name: System config
+  ansible.builtin.import_playbook: play_system.yml
+
+- name: Configure Minecraft server and plugins
+  ansible.builtin.import_playbook: play_minecraft.yml
+
+- name: Configure Web server
+  ansible.builtin.import_playbook: play_webserver.yml

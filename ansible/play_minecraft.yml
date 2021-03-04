@@ -1,0 +1,7 @@
+---
+- name: Configure Minecraft server and plugins
+  hosts: all
+  tasks:
+    - name: Paper server deployment
+      include_role:
+        name: paper
