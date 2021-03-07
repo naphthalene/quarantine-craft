@@ -1,0 +1,7 @@
+---
+- name: Scraper
+  hosts: all
+  tasks:
+    - name: Scraper deployment
+      include_role:
+        name: scraper

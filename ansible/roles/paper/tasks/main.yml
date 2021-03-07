@@ -168,15 +168,3 @@
   changed_when: srv_running_pid is failed
   notify:
     - start
-
-- name: Install scraper from directory
-  ansible.builtin.pip:
-    name: "file://{{ git_dir }}/"
-    virtualenv: "{{ git_dir }}/.venv"
-
-- name: Run scraper every specified period
-  ansible.builtin.cron:
-    name: "Run qcraft-scraper"
-    minute: srv_scraper_cron.minute
-    job: ". {{ git_dir }}/.venv; qcraft-scraper"
-  when: srv_scraper_cron_enable

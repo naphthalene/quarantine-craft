@@ -1,0 +1,4 @@
+---
+srv_scraper_cron_enable: yes
+srv_scraper_cron:
+  minute: "*/2"

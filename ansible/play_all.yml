@@ -7,3 +7,6 @@
 
 - name: Configure Web server
   ansible.builtin.import_playbook: play_webserver.yml
+
+- name: Configure Scraper
+  ansible.builtin.import_playbook: play_scraper.yml

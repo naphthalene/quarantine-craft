@@ -15,9 +15,12 @@ class ServerConfig:
         self.overlay_dir = os.environ['OVERLAY_DIR']
         self.web_dir = os.environ['WEB_DIR']
 
-async def run():
+async def _run():
     config = ServerConfig()
     await asyncio.gather(
         Economy(config).scrape(),
         # McMMO(config).scrape()
     )
+
+def run():
+    asyncio.run(_run())
