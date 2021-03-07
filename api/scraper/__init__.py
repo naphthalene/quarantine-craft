@@ -13,6 +13,7 @@ class ServerConfig:
         self.data_dir = os.environ['DATA_DIR']
         self.config_dir = os.environ['CONFIG_DIR']
         self.overlay_dir = os.environ['OVERLAY_DIR']
+        self.web_dir = os.environ['WEB_DIR']
 
 async def run():
     config = ServerConfig()

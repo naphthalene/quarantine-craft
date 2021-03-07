@@ -2,6 +2,11 @@
 git_repo: git@git.sr.ht:~sigmat/qcraft
 git_ref: origin/main
 git_clone_dir: /var/mc/git
+
+srv_scraper_cron_enable: yes
+srv_scraper_cron:
+  minute: "*/2"
+
 srv_paper_version: 1.16.5-506
 srv_plugins:
   # All <key> references are to `srv_plugins_config_data.<plugin-name>.<key>`

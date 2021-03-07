@@ -17,6 +17,7 @@ class Economy:
             self.PLUGIN_PATH,
             'userdata'
         )
+        self.output_file = os.path.join(config.web_dir, 'api', self.OUTPUT_FILE)
 
     async def _scrape(self):
         """
@@ -44,14 +45,15 @@ class Economy:
             *[_scrape_file(os.path.join(self.userdata_dir, user_file))
               for user_file in os.listdir(self.userdata_dir)])
 
-        # Calculate total server balance
-        balance = sum([p['balance'] for p in players])
-
         return {
-            'balance': balance,
+            'balance': sum([p['balance'] for p in players]),
             'players': players
         }
 
     async def scrape(self):
+        """
+        Generate a scrape and write it to output file
+        """
         scraped_data = await self._scrape()
-        print(json.dumps(scraped_data))
+        with open(self.output_file, 'w') as f:
+            json.dump(scraped_data, f)
