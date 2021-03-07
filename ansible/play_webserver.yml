@@ -28,6 +28,7 @@
         # LiveServer dynmap extension
         atlas:
           location: /atlas
+          html_file_location: "{{ web_root_dir }}"
           auth_basic: "{{ title }}"
           auth_basic_user_file: /etc/nginx/.mcpasswd
 

@@ -1,24 +1,27 @@
-* TODO Spawn rework
-** TODO Room with book, kit info
-* TODO Kits
-** TODO Create
-* TODO Admin shops
-** DONE Green Shop
-   - Totem & Elytra
-** TODO Twisted Hall
-   - 
-** TODO Diamond Alley
-*** TODO Kits of diamond gear for $
-*** TODO 
-** TODO 
-* TODO Plugins
-** TODO Hookshot replacement... :(
-** DONE Armored elytra
-* DONE Automatic backups
-* DONE Backup pruning and sync
-* TODO Website updates (host-based routing in nginx)
-** TODO Show leaderboards, stats
-** TODO LiveAtlas instead of dynmap default
-** TODO oauth2-proxy
-* TODO Discord integration for restart notifications
-  DiscordSRV (?)
+* In-game content
+** DONE Spawn rework
+*** DONE Room with book, kit info
+** TODO Admin shops
+*** DONE Green Shop
+    - (needs a redesign)
+    - Totem & Elytra
+*** TODO Twisted Hall
+    - (open to theme suggestions)
+    - Netherite stuff ?
+*** TODO Diamond Alley
+    - Diamond kit and tools
+*** TODO Builder's Paradise
+    - Go wild with different blocks here, can be an ever-growing list
+*** TODO Dye shop?
+    - (think of better name)
+    - Sell all types of dyes
+* Development
+** DONE Plugins
+*** DONE Hookshot replacement
+*** DONE Armored elytra
+** DONE Automatic backups
+** DONE Backup pruning and sync
+** TODO Website updates (host-based routing in nginx)
+*** TODO Show leaderboards, stats
+*** DONE LiveAtlas instead of dynmap default
+** TODO Discord integrations

@@ -6,7 +6,7 @@ import { Typography } from "@material-ui/core";
 const McMMO: React.FC = () => {
   const [data, setData] = useState<api.McMMO>();
 
-  const request = async (): void => {
+  const request = async () => {
     const response = await fetch("/api/v1/mcmmo");
     const responseData = await response.json();
     setData(responseData as api.McMMO);

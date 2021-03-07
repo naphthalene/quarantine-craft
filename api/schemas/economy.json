@@ -15,9 +15,9 @@
       "items": {
         "type": "object",
         "description": "Player data",
-        "required": ["nick", "balance"],
+        "required": ["id", "balance"],
         "properties": {
-          "nick": {
+          "id": {
             "type": "string",
             "description": "Player nickname"
           },

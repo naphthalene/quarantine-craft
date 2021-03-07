@@ -71,7 +71,7 @@ const ResponsiveLayout: React.FC<{ routes: ReadonlyArray<RouteSpec> }> = ({
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const handleDrawerToggle: void = () => {
+  const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
@@ -145,7 +145,6 @@ const ResponsiveLayout: React.FC<{ routes: ReadonlyArray<RouteSpec> }> = ({
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-
         {children}
       </main>
     </div>

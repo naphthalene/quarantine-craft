@@ -71,6 +71,16 @@ const FAQ = [
       </Typography>
     ),
   },
+  {
+    question: "How do I set up a shop?",
+    answer: (
+      <Typography>
+        <Link href="https://wiki.mc-ess.net/wiki/Sign_Tutorial#Essentials_Eco_Signs">
+          Follow the instructions here to make your own [Trade] shop!
+        </Link>
+      </Typography>
+    ),
+  },
 ];
 
 const useStyles = makeStyles((theme: Theme) =>
