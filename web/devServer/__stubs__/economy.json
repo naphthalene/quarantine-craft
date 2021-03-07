@@ -1,9 +1,9 @@
 {
-  "balance": "$6,901,439.85",
+  "balance": 6901439.85,
   "players": [
     {
       "id": "sigmat",
-      "balance": "$64,022.50"
+      "balance": 64022.50
     }
   ]
 }

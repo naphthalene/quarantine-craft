@@ -1,13 +1,13 @@
+import NotFound from "./NotFound";
+import theme from "../theme";
 import Economy from "./qcraft/Economy";
-import McMMO from "./qcraft/McMMO";
 import FAQ from "./qcraft/FAQ";
 import Home from "./qcraft/Home";
+import McMMO from "./qcraft/McMMO";
 import React from "react";
-import NotFound from "./NotFound";
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { default as Layout, RouteSpec } from "./Layout";
-import theme from "../theme";
 
 const ROUTES: Array<RouteSpec> = [
   {

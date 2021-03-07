@@ -6,7 +6,7 @@
   "required": ["total", "players"],
   "properties": {
     "balance": {
-      "type": "string",
+      "type": "number",
       "description": "The total balance of the server"
     },
     "players": {
@@ -22,7 +22,7 @@
             "description": "Player nickname"
           },
           "balance": {
-            "type": "string",
+            "type": "number",
             "description": "Current balance of player"
           }
         }
