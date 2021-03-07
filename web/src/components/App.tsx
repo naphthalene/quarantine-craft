@@ -31,13 +31,13 @@ const ROUTES: Array<RouteSpec> = [
     external: false,
     component: <Economy />,
   },
-  {
-    to: "/mmo",
-    label: "MMO (Beta)",
-    exact: false,
-    external: false,
-    component: <McMMO />,
-  },
+  /* {
+   *   to: "/mmo",
+   *   label: "MMO (Beta)",
+   *   exact: false,
+   *   external: false,
+   *   component: <McMMO />,
+   * }, */
   {
     to: "/atlas/",
     label: "Atlas",
