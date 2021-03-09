@@ -39,6 +39,7 @@ class ServerConfig:
         try:
             cls.validate(schema_file, data)
             with open(output_file, 'w') as f:
+                print("Here")
                 json.dump(data, f)
         except (ValidationError, SchemaError) as e:
             print(f"Validation error:\n{e.message}")

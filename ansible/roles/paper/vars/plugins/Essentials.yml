@@ -1448,14 +1448,14 @@ Essentials:
       jungleslab: 0.875
 
     #Dirt and derivatives
-      dirt: 0.53 
-      coarsedirt: 0.58
+      dirt: 0
+      coarsedirt: 0
       podzol: 2.63
-      gravel: 0.55
-      hardenedclay: 15.71
+      gravel: 0
+      hardenedclay: 5.0
       bricks: 19.4
-      clayball: 13.86
-      brickstairs: 30.56
+      clayball: 0
+      brickstairs: 15.0
       flint: 0.55
       clay: 3.3
 
@@ -1559,7 +1559,6 @@ Essentials:
       diorite: 1.1
       polisheddiorite: 1.16
       andesite: 1.1
-      polishedgranite: 1.16
       furnace: 9.24
       obsidian: 15.0
 
@@ -1638,7 +1637,6 @@ Essentials:
       hayblock: 31.19
       sunflower: 3.3
       lilac: 2.75
-      tallgrass: 0.01
       largefern: 0.01
       rosebush: 1.1
       peony: 1.1
@@ -1894,7 +1892,6 @@ Essentials:
       splashpotion{Potion:breathing}: 38.93
       splashpotion{Potion:invisibility}: 107.52
       splashpotion{Potion:longregeneration}: 139.13
-      splashpotion{Potion:strongregeneration}: 44.3
       splashpotion{Potion:strongpoison}: 47.45
       splashpotion{Potion:stronghealing}: 53.99
       splashpotion{Potion:strongstrengh}: 110.48
@@ -1903,7 +1900,6 @@ Essentials:
       splashpotion{Potion:strongregeneration}: 133.07
       splashpotion{Potion:longstrengh}: 38.23
       splashpotion{Potion:longfireresistance}: 65.42
-      splashpotion{Potion:strongpoison}: 41.39
       splashpotion{Potion:longnightvision}: 105.39
       splashpotion{Potion:longweakness}: 23.34
       splashpotion{Potion:longslowness}: 73.88

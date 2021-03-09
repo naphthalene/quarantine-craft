@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Typography } from "@material-ui/core";
 import { DataGrid, GridColDef, GridCellParams, GridCellValue, GridSortDirection } from '@material-ui/data-grid';
 import * as api from "./api";
@@ -13,9 +17,14 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       height: "95%",
     },
-    vfill: {
+    grids: {
       flexGrow: 1,
-    }
+      minHeight: "450px",
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(18),
+      fontWeight: theme.typography.fontWeightBold,
+    },
   })
 );
 
@@ -27,16 +36,31 @@ const Economy: React.FC = () => {
     return '$' + money.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
   }
 
-  const columns: GridColDef[] = [
+  const player_columns: GridColDef[] = [
     {
       field: 'id',
       headerName: 'Player',
       flex: 0.6,
-      width: 220,
     },
     {
       field: 'balance',
       headerName: 'Balance',
+      type: 'string',
+      flex: 0.4,
+      valueFormatter: (params: GridCellParams): GridCellValue =>
+        fmt_money(params.value as number)
+    },
+  ];
+
+  const item_columns: GridColDef[] = [
+    {
+      field: 'id',
+      headerName: 'Item',
+      flex: 0.6,
+    },
+    {
+      field: 'worth',
+      headerName: 'Worth',
       type: 'string',
       flex: 0.4,
       valueFormatter: (params: GridCellParams): GridCellValue =>
@@ -60,20 +84,43 @@ const Economy: React.FC = () => {
   return (
     <div className={classes.root}>
       <Typography variant="h6">Server Balance {fmt_money(data.balance as number)}</Typography>
-      <div className={classes.root}>
-        <div className={classes.vfill}>
-          <DataGrid
-            rows={data.players}
-            columns={columns} pageSize={25}
-            className={classes.vfill}
-            sortModel={[
-              {
-                field: 'balance',
-                sort: 'desc' as GridSortDirection,
-              },
-            ]}
-          />
-        </div>
+      <div className={classes.grids}>
+        <Accordion key="items">
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.heading}>Items</Typography>
+          </AccordionSummary>
+          <AccordionDetails className={classes.grids}>
+            <DataGrid
+              rows={data.items}
+              columns={item_columns}
+              className={classes.grids}
+              sortModel={[
+                {
+                  field: 'worth',
+                  sort: 'desc' as GridSortDirection,
+                },
+              ]}
+            />
+          </AccordionDetails>
+        </Accordion>
+        <Accordion key="players">
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.heading}>Players</Typography>
+          </AccordionSummary>
+          <AccordionDetails className={classes.grids}>
+            <DataGrid
+              rows={data.players}
+              columns={player_columns} pageSize={5}
+              className={classes.grids}
+              sortModel={[
+                {
+                  field: 'balance',
+                  sort: 'desc' as GridSortDirection,
+                },
+              ]}
+            />
+          </AccordionDetails>
+        </Accordion>
       </div>
     </div>
   );

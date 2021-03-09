@@ -77,5 +77,4 @@ class Economy:
             'players': players,
             'items': items
         }
-        print(data)
         self.config.output(self.SCHEMA_FILE, self.output_file, data)

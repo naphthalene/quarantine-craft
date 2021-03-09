@@ -8,7 +8,6 @@ import Link from "@material-ui/core/Link";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
-import Box from '@material-ui/core/Box';
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const PLUGIN_LIST = [
