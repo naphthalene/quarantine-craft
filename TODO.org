@@ -25,3 +25,5 @@
 *** TODO Show leaderboards, stats
 *** DONE LiveAtlas instead of dynmap default
 ** TODO Discord integrations
+** TODO API
+*** TODO Add logger

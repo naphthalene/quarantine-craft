@@ -8,7 +8,7 @@ module.exports = {
     },
     lint: "eslint src/**/*.{ts,tsx}",
     api: {
-      default: "json2ts -i ../api/schemas/**/*.json -o src/components/qcraft/api/"
+      default: "json2ts -i ../api/scraper/schemas/**/*.json -o src/components/qcraft/api/"
     }
   }
 };

@@ -3,7 +3,7 @@
   "title": "Economy",
   "type": "object",
   "description": "The economy info of the server",
-  "required": ["total", "players"],
+  "required": ["balance", "players", "items"],
   "properties": {
     "balance": {
       "type": "number",
@@ -24,6 +24,24 @@
           "balance": {
             "type": "number",
             "description": "Current balance of player"
+          }
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "description": "List of items sellable to the server",
+      "items": {
+        "type": "object",
+        "description": "A sellable item",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The name of the block"
+          },
+          "worth": {
+            "type": "number",
+            "description": "The price item can be sold to server for"
           }
         }
       }

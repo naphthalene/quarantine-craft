@@ -17,3 +17,10 @@
           - jre11-openjdk-headless
           - tmux
           - s-tui
+          - cronie
+          - python-pip
+
+    - name: Install virtualenv
+      become: yes
+      ansible.builtin.pip:
+        name: virtualenv

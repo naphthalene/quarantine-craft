@@ -8,6 +8,7 @@ import Link from "@material-ui/core/Link";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
+import Box from '@material-ui/core/Box';
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const PLUGIN_LIST = [
@@ -33,7 +34,7 @@ const FAQ = [
     answer: (
       <div>
         <Typography>
-          This is a Paper server, so you can use the vanilla MC client.
+          This is a Paper server (v1.16.5), compatible with the vanilla client.
         </Typography>
         <Typography>
           Currently installed plugins are:
@@ -79,6 +80,24 @@ const FAQ = [
           Follow the instructions here to make your own [Trade] shop!
         </Link>
       </Typography>
+    ),
+  },
+  {
+    question: "How do I claim a patch of land?",
+    answer: (
+      <div>
+        <Typography>
+          Your first claim will be created when you place your first chest.
+        </Typography>
+        <Typography>
+          Acquire a golden shovel and right click on two opposing
+          corners of land to create a claim.
+        </Typography>
+        <Typography>
+          See more details in game with [/claimsbook], or visit spawn
+          with [/warp spawn]!
+        </Typography>
+      </div>
     ),
   },
 ];
