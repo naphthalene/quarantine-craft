@@ -10,8 +10,8 @@
       "description": "List of players",
       "items": {
         "type": "object",
-        "description": "Player data FIXME",
-        "required": ["nick"],
+        "description": "Player levels and experience counters",
+        "required": ["nick", "skills"],
         "properties": {
           "nick": {
             "type": "string",

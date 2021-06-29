@@ -36,13 +36,6 @@
     dir: "{{ role_path }}/vars/plugins"
     name: plugin_configs
 
-- name: Clone the repo
-  ansible.builtin.git:
-    repo: "{{ git_repo }}"
-    version: "{{ git_ref }}"
-    dest: "{{ git_clone_dir }}"
-    force: yes
-
 - name: Ensure server directories exist
   loop: "{{ server_dirs }}"
   become: yes
@@ -70,9 +63,17 @@
     owner: "{{ srv_user }}"
     group: "{{ srv_user }}"
 
+- name: Clone the repo
+  ansible.builtin.git:
+    repo: "{{ git_repo }}"
+    version: "{{ git_ref }}"
+    dest: "{{ git_clone_dir }}"
+    force: yes
+
 - name: Enumerate all generated plugin files
   set_fact:
     srv_generated_server_configs: "{{ (srv_config.templates | json_query('[].file')) + (srv_config.raw_yaml | json_query('[].file')) }}"
+    # BUG HERE: need to accommodate `data_folder`
     srv_generated_plugin_configs: "{{ srv_plugins.enabled | json_query('[].{name: name, files: [raw_yaml,templates][].file}') }}"
 
 # Configure the server
@@ -134,7 +135,7 @@
 - name: Render plugin configs from raw YAML
   loop: "{{ srv_plugins.enabled | subelements('raw_yaml', skip_missing=True) }}"
   ansible.builtin.copy:
-    dest: "{{ srv_config_dir }}/plugins/{{ item.0.data_folder if item.0.data_folder is defined else item.0.name }}/{{ item.1.file }}"
+    dest: "{{ srv_config_dir }}/plugins/{{ item.0.data_folder | default(item.0.name) }}/{{ item.1.file }}"
     owner: "{{ srv_user }}"
     group: "{{ srv_user }}"
     mode: '0644'
@@ -145,8 +146,8 @@
 - name: Render plugin configs from templates
   loop: "{{ srv_plugins.enabled | subelements('templates', skip_missing=True) }}"
   ansible.builtin.template:
-    src: "{{ role_path }}/templates/plugins/{{ item.0.data_folder if item.0.data_folder is defined else item.0.name }}/{{ item.1.file }}"
-    dest: "{{ srv_config_dir }}/plugins/{{ item.0.data_folder if item.0.data_folder is defined else item.0.name }}/{{ item.1.file }}"
+    src: "{{ role_path }}/templates/plugins/{{ item.0.data_folder | default(item.0.name) }}/{{ item.1.file }}"
+    dest: "{{ srv_config_dir }}/plugins/{{ item.0.data_folder | default(item.0.name) }}/{{ item.1.file }}"
     owner: "{{ srv_user }}"
     group: "{{ srv_user }}"
     mode: '0644'

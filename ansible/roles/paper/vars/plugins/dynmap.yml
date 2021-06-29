@@ -113,15 +113,17 @@ dynmap:
         sendposition: true
         allowwebchat: false
         webchat-interval: 5
-        hidewebchatip: true
         includehiddenplayers: true
         use-name-colors: true
         use-player-login-ip: true
         require-player-login-ip: true
         block-banned-player-chat: true
-        hideifshadow: 0
-        hideifundercover: 0
+        hidewebchatip: true
+        # hideifshadow: 0
+        # hideifundercover: 0
         hideifsneaking: false
+        hide-if-invisiblity-potion: true
+        hidenames: false
         # Require login for web-to-server chat (requires login-enabled: true)
         webchat-requires-login: true
         # If set to true, users must have dynmap.webchat permission in
@@ -129,8 +131,6 @@ dynmap:
         webchat-permissions: true
         # Limit length of single chat messages
         chatlengthlimit: 256
-        hide-if-invisiblity-potion: true
-        hidenames: false
 
       - class: org.dynmap.SimpleWebChatComponent
         allowchat: true

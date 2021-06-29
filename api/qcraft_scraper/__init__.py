@@ -48,7 +48,7 @@ async def _run():
     config = ServerConfig()
     await asyncio.gather(
         Economy(config).scrape(),
-        # McMMO(config).scrape()
+        McMMO(config).scrape()
     )
 
 def run():

@@ -14,11 +14,12 @@
       vars:
         packages:
           - nginx-mainline
-          - jre11-openjdk-headless
+          - jre16-openjdk-headless
           - tmux
           - s-tui
           - cronie
           - python-pip
+          - certbot
 
     - name: Install virtualenv
       become: yes

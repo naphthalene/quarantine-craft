@@ -39,7 +39,6 @@ mcMMO:
         Config_Update_Overwrite: true
         # Play level-up sounds
         LevelUp_Sounds: true
-
         # This should fix blocks being broken client side, but not server-side.
         # Enable to refresh the chunks around a player at the end of Super Breaker,
         # Giga Drill Breaker, and Berserk. Resource intensive for larger servers.

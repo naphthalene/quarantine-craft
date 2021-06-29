@@ -93,8 +93,8 @@ GriefPrevention:
         ProtectPetsOutsideLandClaims: false
       Economy:
         ClaimBlocksMaxBonus: 0
-        ClaimBlocksPurchaseCost: 200.0
-        ClaimBlocksSellValue: 200.0
+        ClaimBlocksPurchaseCost: 75.0
+        ClaimBlocksSellValue: 75.0
       ProtectItemsDroppedOnDeath:
         PvPWorlds: false
         NonPvPWorlds: true

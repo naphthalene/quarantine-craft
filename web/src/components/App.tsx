@@ -1,9 +1,9 @@
 import NotFound from "./NotFound";
 import theme from "../theme";
-import Economy from "./qcraft/Economy";
+/* import Economy from "./qcraft/Economy"; */
 import FAQ from "./qcraft/FAQ";
 import Home from "./qcraft/Home";
-import McMMO from "./qcraft/McMMO";
+/* import McMMO from "./qcraft/McMMO"; */
 import React from "react";
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import { HashRouter, Switch, Route } from "react-router-dom";
@@ -24,14 +24,14 @@ const ROUTES: Array<RouteSpec> = [
     external: false,
     component: <FAQ />,
   },
-  {
-    to: "/economy",
-    label: "Economy (Beta)",
-    exact: false,
-    external: false,
-    component: <Economy />,
-  },
   /* {
+   *   to: "/economy",
+   *   label: "Economy (Beta)",
+   *   exact: false,
+   *   external: false,
+   *   component: <Economy />,
+   * },
+   * {
    *   to: "/mmo",
    *   label: "MMO (Beta)",
    *   exact: false,

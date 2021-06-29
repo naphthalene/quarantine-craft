@@ -3,11 +3,13 @@
 *** DONE Room with book, kit info
 ** TODO Admin shops
 *** DONE Green Shop
-    - (needs a redesign)
     - Totem & Elytra
 *** TODO Twisted Hall
     - (open to theme suggestions)
     - Netherite stuff ?
+*** TODO The Range
+    - Grappling hook kit
+    - Moarbows
 *** TODO Diamond Alley
     - Diamond kit and tools
 *** TODO Builder's Paradise
@@ -21,9 +23,29 @@
 *** DONE Armored elytra
 ** DONE Automatic backups
 ** DONE Backup pruning and sync
-** TODO Website updates (host-based routing in nginx)
-*** TODO Show leaderboards, stats
+** DONE Website updates (host-based routing in nginx)
+*** DONE Show leaderboards, stats
 *** DONE LiveAtlas instead of dynmap default
+** TODO 1.17 Upgrade
+*** DONE Host world downloads from S3
+*** TODO Build jars in house
+*** TODO World convert
+*** TODO Plugin compatibility
+**** TODO ArmoredElytra
+**** TODO AutomatedCrafting
+**** TODO bStats?
+**** TODO ChestSort
+**** TODO dynmap
+**** TODO Essentials
+**** TODO GrapplingHook
+**** TODO Graves
+**** TODO GriefPrevention
+**** TODO Harbor
+**** TODO LuckPerms
+**** TODO mcMMO
+**** TODO MoarBows
+**** TODO TreeAssist
+**** TODO Vault
 ** TODO Discord integrations
 ** TODO API
 *** TODO Add logger
